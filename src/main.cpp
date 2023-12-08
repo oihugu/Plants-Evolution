@@ -1,9 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include "gtest/gtest.h"
 
 using namespace sf;
 
-int main()
-{
+int main(int argc, char *argv[]){
+
+    if (argc >= 1){
+        ::testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    }
+
     RenderWindow window({ 1920u, 1080u }, "CMake SFML Project" );
     ContextSettings settings;
 
@@ -13,6 +19,7 @@ int main()
     settings.antialiasingLevel = 8;
     //settings.
 
+    
     while (window.isOpen())
     {
         for (auto event = Event{}; window.pollEvent(event);)
@@ -27,5 +34,6 @@ int main()
         window.clear();
         window.draw(rectangle);
         window.display();
+        
     }
 }

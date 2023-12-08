@@ -1,3 +1,4 @@
 add_subdirectory(Display)
 add_subdirectory(EvolutionaryAlgorithm)
 add_subdirectory(LSystem)
+add_subdirectory(Utils)
