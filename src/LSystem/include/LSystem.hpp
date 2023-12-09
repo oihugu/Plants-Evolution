@@ -10,14 +10,15 @@ private:
     string axiom;
     string actual_state;
     vector<char> aplhabet;
-    vector<Rule> production_rules;
-    
-    string replace(string state, Rule rule);
+    vector<Rule> production_rules;    
 public:
+    // Constructor
     LSystem(vector<char> V, string W, vector<Rule> P);
-
-    void applyRules(vector<Rule> Rules);
+    // Methods
+    void applyRules();
+    // Getters
     string getState();
+    // Setters
 };
 
 #endif

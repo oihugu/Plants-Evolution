@@ -7,11 +7,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 include(FetchContent)
+
+##############################################
+# Including SFML
+##############################################
 FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
-    
+
+##############################################
+# Including GoogleTest
+##############################################
 FetchContent_Declare(
       googletest
       URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
@@ -19,11 +26,13 @@ FetchContent_Declare(
     )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-
 include(GoogleTest)
 
+##############################################
+# Including subdirectories
+##############################################
+
 link_directories(src)
-add_subdirectory(src)
 add_subdirectory(test)
 
 link_directories(LSystem)
@@ -57,11 +66,15 @@ target_include_directories(EvolutionaryAlgorithm_library
                            ${PROJECT_SOURCE_DIR}/src/EvolutionaryAlgorithm/include)
 
 ##############################################
+#
+##############################################
 
 set(CMAKE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/test")
 set(PROJECT_LINK_LIBS LSystem_library)
 
-
+##############################################
+# Create executable
+##############################################
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp test/main_test.cpp)
 target_link_libraries(${CMAKE_PROJECT_NAME}
                     PUBLIC 

@@ -12,6 +12,8 @@ private:
     string replacement;
 public:
     Rule(char c, string s);
+    // Methods
+    void replace(string& str);
     // Setters
     void setInitChar(char c);
     void setReplacement(string s);

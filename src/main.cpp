@@ -2,7 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 #include "LSystem/include/LSystem.hpp"
 #include "LSystem/include/Rule.hpp"
 
@@ -16,10 +16,14 @@ int main(int argc, char *argv[]){
     }
 
 
-    Rule r = Rule('A', "AB");
+    LSystem lsystem(vector<char>{'A','B'},
+            "A",
+            vector<Rule>{Rule('A',"AB"), Rule('B',"BA")});
 
-    cout << r.getInitChar() << endl;
-    cout << r.getReplacement() << endl;  
+    lsystem.applyRules();
+
+    cout << lsystem.getState() << endl;
+     
 
     // RenderWindow window({ 1920u, 1080u }, "CMake SFML Project" );
     // ContextSettings settings;
