@@ -16,12 +16,10 @@ int main(int argc, char *argv[]){
     }
 
 
-    Rule r = Rule();
-    r.setInitChar('A');
-    r.setReplacement("AB");
+    Rule r = Rule('A', "AB");
 
     cout << r.getInitChar() << endl;
-    cout << r.getReplacement() << endl;    
+    cout << r.getReplacement() << endl;  
 
     // RenderWindow window({ 1920u, 1080u }, "CMake SFML Project" );
     // ContextSettings settings;

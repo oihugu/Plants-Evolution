@@ -31,9 +31,35 @@ link_directories(LSystem/build)
 include_directories(LSystem/include)
 
 
+##############################################
+# Create LSystem library
+##############################################
+
+add_library(LSystem_library
+            SHARED
+            src/LSystem/Rule.cpp
+            src/LSystem/LSystem.cpp)
+
+target_include_directories(LSystem_library
+                           PUBLIC 
+                           ${PROJECT_SOURCE_DIR}/src/LSystem/include)
+
+##############################################
+# Create LSystem library
+##############################################
+
+add_library(EvolutionaryAlgorithm_library
+            SHARED
+            src/EvolutionaryAlgorithm/EvolutionaryAlgorithm.cpp)
+
+target_include_directories(EvolutionaryAlgorithm_library
+                           PUBLIC 
+                           ${PROJECT_SOURCE_DIR}/src/EvolutionaryAlgorithm/include)
+
+##############################################
 
 set(CMAKE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/test")
-set(PROJECT_LINK_LIBS PlantsEvolution_LSystem)
+set(PROJECT_LINK_LIBS LSystem_library)
 
 
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp test/main_test.cpp)

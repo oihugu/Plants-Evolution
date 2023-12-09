@@ -5,8 +5,9 @@
 
 using namespace std;
 
-Rule::Rule(char c) {
+Rule::Rule(char c, string s) {
     this->start = c;
+    this->replacement = s;
 }
 
 void Rule::setInitChar(char c) {
@@ -18,14 +19,10 @@ void Rule::setReplacement(string s) {
 }
 
 char Rule::getInitChar(){
-    return start;
+    return this->start;
 }
 
 string Rule::getReplacement(){
-    return replacement;
+    return this->replacement;
 }
 
-
-TTTest::TTTest(){
-    this->test_string = "test";
-}

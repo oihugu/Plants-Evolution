@@ -11,8 +11,7 @@ private:
     char start;
     string replacement;
 public:
-    Rule();
-    Rule(char c);
+    Rule(char c, string s);
     // Setters
     void setInitChar(char c);
     void setReplacement(string s);
