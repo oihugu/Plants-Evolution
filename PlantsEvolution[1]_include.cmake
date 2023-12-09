@@ -1,5 +1,0 @@
-if(EXISTS "/home/oihugu/Plants-Evolution/PlantsEvolution[1]_tests.cmake")
-  include("/home/oihugu/Plants-Evolution/PlantsEvolution[1]_tests.cmake")
-else()
-  add_test(PlantsEvolution_NOT_BUILT PlantsEvolution_NOT_BUILT)
-endif()
