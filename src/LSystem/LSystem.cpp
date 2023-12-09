@@ -1,28 +1,17 @@
 #include <string>
 #include <vector>
+#include "include/Rule.hpp"
 
 using namespace std;
 
-class Rule {
-
-    char start;
-    string replacement;
-
-    Rule(char s,
-        string r) {
-        // s start char
-        // r replacement string
-        start = s;
-        replacement = r;
-    }
-};
-
 class LSystem {
-    vector<char> aplhabet;
+private:
     string axiom;
     string actual_state;
+    vector<char> aplhabet;
     vector<Rule> production_rules;
 
+public:
     LSystem(vector<char> V,
             string W,
             vector<Rule> P){
@@ -36,11 +25,27 @@ class LSystem {
         actual_state = W;
     }
 
-    // void applyRules(vector<Rule> Rules){
-    //     for (auto rule =  Rules.begin();
-    //               rule != Rules.end();
-    //               ++rule){
-    //         actual_state.replace()
-    //     }
-    // }
+    string replace(string state, Rule rule){
+        string new_str;
+        for (int i; i < state.size(); i++){
+            if (state[i] == rule.getInitChar())
+                new_str.append(rule.getReplacement());
+            else
+                new_str.append(&state[i]);
+        }
+        return new_str;
+    }
+
+    void applyRules(vector<Rule> Rules){
+        for (auto it =  Rules.begin();
+                  it != Rules.end();
+                  ++it){
+            Rule& rule = *it;
+            this->actual_state = this->replace(actual_state, rule);
+        }
+    }
+
+    string getState(){
+        return this->actual_state;
+    }
 };

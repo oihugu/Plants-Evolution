@@ -15,21 +15,36 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_Declare(
       googletest
       URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+      DOWNLOAD_EXTRACT_TIMESTAMP 1609450000
     )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
-
+link_directories(src)
 add_subdirectory(src)
 add_subdirectory(test)
 
+link_directories(LSystem)
+link_directories(LSystem/build)
+include_directories(LSystem/include)
+
+
+
 set(CMAKE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/test")
+set(PROJECT_LINK_LIBS PlantsEvolution_LSystem)
+
 
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp test/main_test.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE sfml-graphics GTest::gtest_main GTest::gtest)
-target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
+target_link_libraries(${CMAKE_PROJECT_NAME}
+                    PUBLIC 
+                     sfml-graphics 
+                     GTest::gtest_main 
+                     GTest::gtest
+                     ${PROJECT_LINK_LIBS})
+
+
 
 if(WIN32)
     add_custom_command(
@@ -45,3 +60,4 @@ install(TARGETS ${CMAKE_PROJECT_NAME})
 gtest_discover_tests(${CMAKE_PROJECT_NAME}
                     EXTRA_ARGS --test 1
                     WORKING_DIRECTORY test)
+

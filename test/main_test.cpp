@@ -1,3 +1,5 @@
+#include "../src/LSystem/include/LSystem.hpp"
+#include "../src/LSystem/include/Rule.hpp"
 #include <gtest/gtest.h>
 
 
