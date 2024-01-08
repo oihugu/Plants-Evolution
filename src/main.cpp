@@ -1,10 +1,8 @@
-#include <string>
-#include <vector>
-#include <SFML/Graphics.hpp>
-
 #include <gtest/gtest.h>
 #include "LSystem/include/LSystem.hpp"
 #include "LSystem/include/Rule.hpp"
+
+#include "Display/include/Display.hpp"
 
 using namespace sf;
 
@@ -15,40 +13,8 @@ int main(int argc, char *argv[]){
         return RUN_ALL_TESTS();
     }
 
+    Display display;
 
-    LSystem lsystem(vector<char>{'A','B'},
-            "A",
-            vector<Rule>{Rule('A',"AB"), Rule('B',"BA")});
-
-    lsystem.applyRules();
-
-    cout << lsystem.getState() << endl;
-     
-
-    // RenderWindow window({ 1920u, 1080u }, "CMake SFML Project" );
-    // ContextSettings settings;
-
-    // RectangleShape rectangle(Vector2f(120.f, 50.f));
-    
-    // window.setFramerateLimit(60);
-    // settings.antialiasingLevel = 8;
-    // //settings.
 
     
-    // while (window.isOpen())
-    // {
-    //     for (auto event = Event{}; window.pollEvent(event);)
-    //     {
-    //         if (event.type == Event::Closed)
-    //         {
-    //             window.close();
-    //         }
-    //     }
-
-
-    //     window.clear();
-    //     window.draw(rectangle);
-    //     window.display();
-        
-    // }
 }

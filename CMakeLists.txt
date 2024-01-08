@@ -15,6 +15,11 @@ FetchContent_Declare(SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
+FetchContent_GetProperties ( SFML SOURCE_DIR SFML_SOURCE_DIR )
+
+set ( SFML_INCLUDE_DIR ${SFML_SOURCE_DIR}/include )
+
+set ( SFML_LIBRARIES sfml-graphics sfml-window sfml-system sfml-audio )
 
 ##############################################
 # Including GoogleTest
@@ -27,7 +32,6 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
-
 ##############################################
 # Including subdirectories
 ##############################################
@@ -45,7 +49,7 @@ include_directories(LSystem/include)
 ##############################################
 
 add_library(LSystem_library
-            SHARED
+            STATIC 
             src/LSystem/Rule.cpp
             src/LSystem/LSystem.cpp)
 
@@ -54,11 +58,28 @@ target_include_directories(LSystem_library
                            ${PROJECT_SOURCE_DIR}/src/LSystem/include)
 
 ##############################################
+# Create Display library
+##############################################
+
+add_library(Display
+            STATIC 
+            src/Display/Display.cpp
+            src/Display/Turtle.cpp)
+
+target_include_directories(Display
+               PUBLIC 
+               ${PROJECT_SOURCE_DIR}/src/Display/include)
+
+target_link_libraries(Display
+                      PUBLIC 
+                      ${SFML_LIBRARIES})
+
+##############################################
 # Create LSystem library
 ##############################################
 
 add_library(EvolutionaryAlgorithm_library
-            SHARED
+            STATIC
             src/EvolutionaryAlgorithm/EvolutionaryAlgorithm.cpp)
 
 target_include_directories(EvolutionaryAlgorithm_library
@@ -70,7 +91,7 @@ target_include_directories(EvolutionaryAlgorithm_library
 ##############################################
 
 set(CMAKE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/test")
-set(PROJECT_LINK_LIBS LSystem_library)
+set(PROJECT_LINK_LIBS LSystem_library Display EvolutionaryAlgorithm_library)
 
 ##############################################
 # Create executable
@@ -78,7 +99,7 @@ set(PROJECT_LINK_LIBS LSystem_library)
 add_executable(${CMAKE_PROJECT_NAME} src/main.cpp test/main_test.cpp)
 target_link_libraries(${CMAKE_PROJECT_NAME}
                     PUBLIC 
-                     sfml-graphics 
+                     ${SFML_LIBRARIES}
                      GTest::gtest_main 
                      GTest::gtest
                      ${PROJECT_LINK_LIBS})
